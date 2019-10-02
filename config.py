@@ -2,7 +2,7 @@ import os
 
 class Config:
 
-    SECRET_KEY =('0987654321')
+    SECRET_KEY =('juru1')
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://wecode:  @localhost/books'
     UPLOADED_PHOTOS_DEST ='app/static/photos'
     #  email configurations

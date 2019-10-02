@@ -1,5 +1,16 @@
-{% extends 'admin/master.html' %}
-{% extends 'bootstrap/base.html'%}
-{% block body %}
-  <p>Hello world</p>
+{% extends 'base.html'%}
+{% import "bootstrap/wtf.html" as wtf %}
+<!-- Styles block -->
+
+{% block styles%}
+{{ super() }}
+<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
+{% endblock %} 
+
+{% block content %}
+
+<h1 id="big" style="color:#6E2C00; text-align:center;font-family: 'Open Sans Condensed', sans-serif;font-size:50px;font-style:oblique">WELCOME TO MY BLOGAPP</h1>
+
+
 {% endblock %}
