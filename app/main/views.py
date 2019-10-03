@@ -2,8 +2,9 @@ from flask import render_template,request,redirect,url_for, abort
 from . import main
 from .forms import UpdateProfile,BookForm
 from .. import db,photos
-from ..models import Book
+from ..models import Book,Page
 from flask_login import login_required, current_user
+import markdown2
 
 @main.route('/', methods = ['GET', 'POST'])
 def index():
@@ -61,15 +62,29 @@ def add_book():
     if form.validate_on_submit():
         book_name = form.book_name.data
         content = form.content.data
-        page_number= int(form.page_number.data)
-
-        new_book = Book(book_name = book_name,content=content, page_number = page_number)
+        new_book = Book(book_name = book_name,content=content)
         new_book.save_book()
          
         return redirect(url_for('.index'))
         
-    
-
     title = 'Add Book'    
     
     return render_template('book.html', title = title, ola = form)
+# @main.route('/page/new/', methods = ['GET', 'POST'])
+# @login_required
+# def add_page():
+#     form = BookForm()
+   
+#     if form.validate_on_submit():
+#         page_number= int(form.page_number.data)
+
+#         new_page = Book(page_number = page_number)
+#         new_page.save_page()
+         
+#         return redirect(url_for('.index'))
+        
+#     title = 'Add Book'    
+    
+#     return render_template('book.html', title = title, ola = form)
+
+

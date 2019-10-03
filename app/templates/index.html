@@ -7,11 +7,42 @@
 {{ super() }}
 <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
-{% endblock %} 
+{% endblock %}
 
 {% block content %}
-{{ macro.displayBooks(books)}}
-<h1 id="big" style="color:#6E2C00; text-align:center;font-family: 'Open Sans Condensed', sans-serif;font-size:50px;font-style:oblique">E-BOOK</h1>
-<button><a href="book/new"style="color: rgb(70, 2, 2);font-size:20px">AddBook</a></button>
 
+<h1 id="big"
+    style="color:#6E2C00; text-align:center;font-family: 'Open Sans Condensed', sans-serif;font-size:50px;font-style:oblique">
+    E-BOOK</h1>
+<button><a href="book/new" style="color: rgb(70, 2, 2);font-size:20px">AddBook</a></button>
+{{ macro.displayBooks(books)}}
+<div class="row">
+    <ol>
+        <li>
+            <a href="https://www.wattpad.com/story/162740533-grounding-the-storm">
+                <img src="https://a.wattpad.com/cover/162740533-144-k769922.jpg" width="200" height="230" /><br><br>
+                <button>Read</button></a>
+        </li>
+        <li>
+            <a href="https://www.wattpad.com/story/141632409-magical-academy-the-long-lost-princess-of-magics">
+                <img src="https://a.wattpad.com/cover/141632409-144-k911137.jpg" width="200" height="230" /><br><br>
+                <button>Read</button></a>
+        </li>
+        <li>
+            <a href="https://www.wattpad.com/43768984-storm-and-silence-01-arrested-for-good-manners">
+                <img src="https://a.wattpad.com/cover/57664404-144-k435061.jpg" width="200" height="230" /><br><br>
+                <button>Read</button></a>
+        </li>
+        <li>
+            <a href="https://https://www.wattpad.com/story/162673478-the-culled-crown">
+                <img src="https://a.wattpad.com/cover/162673478-144-k796087.jpg" width="200" height="230" /><br><br>
+                <button>Read</button></a>
+        </li>
+        <li>
+            <a href="https://www.wattpad.com/story/116876996-king-of-the-woodlands">
+                <img src="https://a.wattpad.com/cover/116876996-144-k368819.jpg" width="200"
+                    height="230" /><br><br><button>Read</button></a>
+        </li>
+    </ol>
+</div>
 {% endblock %}

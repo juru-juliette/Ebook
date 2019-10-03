@@ -10,5 +10,4 @@ class UpdateProfile(FlaskForm):
 class BookForm(FlaskForm):
     book_name=StringField('Title',validators = [Required()])
     content=TextAreaField('Content',validators = [Required()])
-    page_number=SelectField('choose number',validators =[Required()], choices=[('1', '1'), ('2', '2'), ('3', '3')])
     submit=SubmitField('SUBMIT')
