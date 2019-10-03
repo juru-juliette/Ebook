@@ -26,16 +26,18 @@ class Author(UserMixin,db.Model):
     email = db.Column(db.String(255),unique = True,index = True)
     role_id = db.Column(db.Integer,db.ForeignKey('roles.id'))
     password_hash = db.Column(db.String(255))
+    pass_secure=db.Column(db.String(255))
     bio = db.Column(db.String(255))
     profile_pic_path = db.Column(db.String())
-    books = db.relationship('Comment',backref='author' ,lazy='dynamic')
-    comments = db.relationship('Comment',backref='author' ,lazy='dynamic')
+    books = db.relationship('Book',backref='authors' ,lazy='dynamic')
+    comments = db.relationship('Comment',backref='authors' ,lazy='dynamic')
     
     
    
     @login_manager.user_loader
     def load_user(user_id):
-        return User.query.get(int(user_id))
+        return Author.query.get(int(user_id))
+
 
     
     @property
@@ -62,6 +64,7 @@ class Admin(UserMixin,db.Model):
     id = db.Column(db.Integer,primary_key = True)
     username=db.Column(db.String)
     email = db.Column(db.String)
+    pass_secure=db.Column(db.String(255))
     role_id = db.Column(db.Integer,db.ForeignKey('roles.id'))
     comments = db.relationship('Comment',backref='admin' ,lazy='dynamic')
     @property
@@ -88,13 +91,18 @@ class Book(UserMixin,db.Model):
     content = db.Column(db.String)
     page_number=db.Column(db.Integer)
     author_id = db.Column(db.Integer,db.ForeignKey('authors.id'))
-    comments = db.relationship('Comment',backref='book' ,lazy='dynamic')
+    comments = db.relationship('Comment',backref='books' ,lazy='dynamic')
+    
     def save_book(self):
         db.session.add(self)
         db.session.commit()
     def update_book(self):
         db.session.add(self)
         db.session.commit()
+    @classmethod
+    def get_books(cls):
+        books = Book.query.all()
+        return books
 
 
 class Comment(db.Model):

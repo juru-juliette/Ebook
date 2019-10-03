@@ -1,9 +1,5 @@
 {% extends 'base.html'%}
 {% import 'bootstrap/wtf.html' as wtf%}
-{% block styles%}
-    {{ super() }}
-    <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
-{% endblock %}
 
 {% block content %}
 <div class="container"> 
@@ -19,8 +15,7 @@
       {% endfor %}
       <!-- Login form -->
       {{wtf.quick_form(login_form)}}
-      <p>Not the admin? <a href="{{url_for('main.index')}}">Sign up here</a></p>
-     
+      <p> Don't have an account? <a href="{{url_for('auth.register')}}">Sign up here</a></p>
      </div>
      <div clas="col-md-2"> </div>
     </div>

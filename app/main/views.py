@@ -1,8 +1,8 @@
 from flask import render_template,request,redirect,url_for, abort
 from . import main
-from .forms import UpdateProfile
+from .forms import UpdateProfile,BookForm
 from .. import db,photos
-from ..models import Author,Admin
+from ..models import Book
 from flask_login import login_required, current_user
 
 @main.route('/', methods = ['GET', 'POST'])
@@ -12,8 +12,8 @@ def index():
     '''
  
   title="Home| Welcome to Ebook Maker"
-  
-  return render_template('index.html')
+  books = Book.get_books()
+  return render_template('index.html',title = title,books = books)
 @main.route('/user/<uname>')
 def profile(uname):
     user = User.query.filter_by(username = uname).first()
@@ -52,3 +52,24 @@ def update_pic(uname):
         user.profile_pic_path = path
         db.session.commit()
     return redirect(url_for('main.profile',uname=uname))
+
+@main.route('/book/new/', methods = ['GET', 'POST'])
+@login_required
+def add_book():
+    form = BookForm()
+   
+    if form.validate_on_submit():
+        book_name = form.book_name.data
+        content = form.content.data
+        page_number= int(form.page_number.data)
+
+        new_book = Book(book_name = book_name,content=content, page_number = page_number)
+        new_book.save_book()
+         
+        return redirect(url_for('.index'))
+        
+    
+
+    title = 'Add Book'    
+    
+    return render_template('book.html', title = title, ola = form)

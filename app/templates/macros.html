@@ -1,0 +1,17 @@
+{% macro displayBooks(books) %}
+
+{% for book in books %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+          
+            <p>{{book.book_name}}</p>
+            <p>{{book.page_number}}</p>
+            <p>{{book.content}}</p>
+
+        </div>
+    </div>
+</div>
+{%endfor%}
+{%endmacro%}
