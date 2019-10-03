@@ -7,7 +7,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/"> E Book </a>
+          <a class="navbar-brand" href="/"> E-Book </a>
       </div>
       <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -16,13 +16,11 @@
       <ul class="nav navbar-nav navbar-right">
           {% if current_user.is_authenticated %}
           <!-- <li style="color:white;padding:15px;">{{current_user.username}}</li> -->
-          <li><a href="{{url_for('main.profile',uname=current_user.authorname)}}">Profile</a></li>
+          <li><a href="{{url_for('main.profile',uname=current_user.username)}}">Profile</a></li>
           <li><a href="{{url_for('auth.logout')}}">Sign out</a></li>
           {% else %}
           <li><a href="{{url_for('auth.login')}}">Sign in</a></li>
           {%endif%}
         </ul>
-
-
   </div>
 </div>

@@ -5,21 +5,21 @@ from . import login_manager
 from datetime import datetime
      
 
-class Author(UserMixin,db.Model):
-    __tablename__ = 'authors'
+class User(UserMixin,db.Model):
+    __tablename__ = 'users'
 
     id = db.Column(db.Integer,primary_key = True)
-    author_name = db.Column(db.String(255),index = True)
+    username = db.Column(db.String(255),index = True)
     email = db.Column(db.String(255),unique = True,index = True)
     password_hash = db.Column(db.String(255))
     pass_secure=db.Column(db.String(255))
     bio = db.Column(db.String(255))
     profile_pic_path = db.Column(db.String())
-    books = db.relationship('Book',backref='authors' ,lazy='dynamic')
+    books = db.relationship('Book',backref='users' ,lazy='dynamic')
     
     @login_manager.user_loader
     def load_user(user_id):
-        return Author.query.get(int(user_id))
+        return User.query.get(int(user_id))
 
 
     
@@ -36,7 +36,7 @@ class Author(UserMixin,db.Model):
             return check_password_hash(self.pass_secure,password)
     
     def __repr__(self):
-      return f'Author {self.author_name}'
+      return f'User {self.username}'
 
 
 
@@ -48,7 +48,7 @@ class Book(UserMixin,db.Model):
     id = db.Column(db.Integer,primary_key = True)
     book_name=db.Column(db.String)
     content = db.Column(db.String)
-    author_id = db.Column(db.Integer,db.ForeignKey('authors.id'))
+    user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
     page = db.relationship('Page',backref='books' ,lazy='dynamic')
     
     def save_book(self):
@@ -68,7 +68,7 @@ class Page(db.Model):
     id= db.Column(db.Integer,primary_key= True)
     page_number=db.Column(db.Integer)
     book_id = db.Column(db.Integer,db.ForeignKey('books.id'))
-    author_id = db.Column(db.Integer,db.ForeignKey('authors.id'))
+    user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
     def save_page(self):
         db.session.add(self)
         db.session.commit()
