@@ -4,12 +4,23 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-4">
-          
-            <p>Book Name: {{book.book_name}}</p>
-            <p>content: {{book.content}}</p>
-
+        <div class="col-md-6">
+            {% if book.image %}
+            <img src="{{url_for('static',filename=book.image)}}" width="350" height="300"><br><br><br>
+            {% endif %}
         </div>
+
+        <div class="col-md-6">
+                <link href="https://fonts.googleapis.com/css?family=Lobster|Old+Standard+TT|Open+Sans+Condensed:300&display=swap" rel="stylesheet">
+            <h1 style="font-family: 'Old Standard TT', serif; ">Book Name</h1>
+            <p  style="font-family: 'Old Standard TT', serif; color: black;font-size: 20px;">{{book.title}}</p>
+            <h1 style="font-family: 'Old Standard TT', serif; ">Description</h1>
+            <p  style="font-family: 'Old Standard TT', serif; color: black;font-size: 20px;">{{book.content}}</p>
+            <button><a href="book/new" style="color: rgb(70, 2, 2);font-size:20px">AddBook</a></button>
+        </div>
+
+
+
     </div>
 </div>
 {%endfor%}

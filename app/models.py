@@ -39,14 +39,13 @@ class User(UserMixin,db.Model):
       return f'User {self.username}'
 
 
-
-
 class Book(UserMixin,db.Model):
 
     __tablename__ = 'books'
 
     id = db.Column(db.Integer,primary_key = True)
-    book_name=db.Column(db.String)
+    title=db.Column(db.String)
+    image = db.Column(db.String())
     content = db.Column(db.String)
     user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
     page = db.relationship('Page',backref='books' ,lazy='dynamic')

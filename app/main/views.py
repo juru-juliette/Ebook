@@ -4,6 +4,7 @@ from .forms import UpdateProfile,BookForm
 from .. import db,photos
 from ..models import User,Book,Page
 from flask_login import login_required, current_user
+from werkzeug.utils import secure_filename
 import markdown2
 
 @main.route('/', methods = ['GET', 'POST'])
@@ -23,9 +24,13 @@ def add_book():
     form = BookForm()
    
     if form.validate_on_submit():
-        book_name = form.book_name.data
+        title = form.title.data
+        image = form.image.data
+        filename = photos.save(image)
+        print(filename)
+        path = f'photos/{filename}'
         content = form.content.data
-        new_book = Book(book_name = book_name,content=content)
+        new_book = Book(title = title, image = path,content=content)
         new_book.save_book()
          
         return redirect(url_for('.index'))
