@@ -1,6 +1,6 @@
 from flask import render_template,request,redirect,url_for, abort
 from . import main
-from .forms import UpdateProfile,BookForm
+from .forms import UpdateProfile,BookForm,UpdateForm
 from .. import db,photos
 from ..models import User,Book,Page
 from flask_login import login_required, current_user
@@ -38,22 +38,32 @@ def add_book():
     title = 'Add Book'    
     
     return render_template('book.html', title = title, ola = form)
-# @main.route('/page/new/', methods = ['GET', 'POST'])
-# @login_required
-# def add_page():
-#     form = BookForm()
-   
-#     if form.validate_on_submit():
-#         page_number= int(form.page_number.data)
 
-#         new_page = Book(page_number = page_number)
-#         new_page.save_page()
-         
-#         return redirect(url_for('.index'))
+
+    #############################
+@main.route('/edit/book/<int:id>',methods= ['GET','POST'])
+@login_required
+def update_page(id):
+    book=Book.query.filter_by(id=id).first()
+    if book is None:
+        abort(404)
+
+    form=UpdateForm()
+    user = current_user
+    if form.validate_on_submit():
+        book.content=form.content.data
+
+        db.session.add(book)
+        db.session.commit()
+
+        return redirect(url_for('main.index'))
+    elif request.method == 'GET':
         
-#     title = 'Add Book'    
-    
-#     return render_template('book.html', title = title, ola = form)
+        book.content =form.content.data
+        
+
+    return render_template('update.html',form =form,book=book)    
+
 @main.route('/user/<uname>')
 def profile(uname):
     user = User.query.filter_by(username = uname).first()

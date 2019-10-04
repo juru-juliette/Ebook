@@ -15,6 +15,5 @@ class BookForm(FlaskForm):
     content=TextAreaField('Content',validators = [Required()])
     submit=SubmitField('SUBMIT')
 class UpdateForm (FlaskForm):
-    title=StringField('Title',validators = [Required()])
     content=TextAreaField('Content',validators = [Required()])
     submit=SubmitField('SUBMIT')
